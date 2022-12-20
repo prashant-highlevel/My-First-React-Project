@@ -23,29 +23,7 @@ export default function TextForm(props) {
     setText(Event.target.value);
   };
 
-  const changeMode = () => {
-    if (mode.backgroundColor === "white") {
-      document.body.style.backgroundColor = "black";
-      document.body.style.color = "white";
-      setMode({
-        backgroundColor: "darkgrey",
-        color: "darkblue",
-      });
-    } else {
-      document.body.style.backgroundColor = "white";
-      document.body.style.color = "black";
-      setMode({
-        backgroundColor: "white",
-        color: "black",
-      });
-    }
-  };
-
   const [text, setText] = useState("");
-  const [mode, setMode] = useState({
-    backgroundColor: "white",
-    color: "black",
-  });
 
   return (
     <>
@@ -59,7 +37,10 @@ export default function TextForm(props) {
             placeholder="Enter Your Text Here"
             value={text}
             onChange={handleOnChange}
-            style={mode}
+            style={{
+              backgroundColor: props.mode === "dark" ? "darkgray" : "white",
+              color: props.mode === "dark" ? "darkblue" : "black",
+            }}
           ></textarea>
         </div>
         <button className="btn btn-primary mx-1" onClick={handleUpClick}>
@@ -76,18 +57,6 @@ export default function TextForm(props) {
         </button>
       </div>
       <div className="container my-3">
-        <div className="form-check form-switch my-3 mx-1">
-          <label className="form-check-label" htmlFor="flexSwitchCheckDefault">
-            Enable Dark Mode
-          </label>
-          <input
-            className="form-check-input"
-            type="checkbox"
-            role="switch"
-            id="flexSwitchCheckDefault"
-            onChange={changeMode}
-          />
-        </div>
         <h2>Your Text Summary</h2>
         <p>
           {text.split(" ").length} Words and {text.length} characters
